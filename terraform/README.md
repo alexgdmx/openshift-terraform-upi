@@ -1,7 +1,6 @@
 ## OpenShift terraform UPI
 
 ## Terraform 
-Change to the folder terraform.
 
 The folder **vars** contain the file **common.tfvars**, this file you can provide the vcenter configuration, and the nodes values as cpu and memory, also the networking values. The variable file contain a dictionary with nested values of your VMs, you can add many workers, infra and other kind of nodes. The **ip** list (array) must be the same length as the **hostname** value. The example shopws 3 worker, but can be 2 or 4 or more. The same infra. The example shows the **sotorage.ip** and **storage.hostname** empty, that makes when you run the **plan** in one step, the storage VMs skip the loop.  
 ```bash
@@ -170,36 +169,4 @@ Do you really want to destroy all resources?
 ```
 Type **yes** and the bootstrap will be deleted
 
-
-
-
-### Terraform structure 
-```bash 
-.
-├── apply
-├── destroy
-├── main.tf
-├── modules
-│   ├── bootstrap
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   ├── templates
-│   │   │   └── merge-bootstrap.tpl
-│   │   └── vars.tf
-│   ├── nodes
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   └── vars.tf
-│   ├── nodes-master
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   └── vars.tf
-│   └── nodes-storage
-│       ├── main.tf
-│       ├── outputs.tf
-│       └── vars.tf
-├── plan
-└── vars
-    └── common.tfvars
-```
 
