@@ -196,6 +196,14 @@ module.bootstrap.vsphere_virtual_machine.openshift: Still creating... [40s elaps
 Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 ````
 
+Once we deploy the VMs with terraform we can follow the [installation](https://docs.openshift.com/container-platform/4.11/installing/installing_vsphere/installing-vsphere.html#installation-installing-bare-metal_installing-vsphere).
+
+## Don't forget [approve the certificates](https://docs.openshift.com/container-platform/4.11/installing/installing_vsphere/installing-vsphere.html#installation-approve-csrs_installing-vsphere)
+```bash
+oc get csr -o go-template='{{range .items}}{{if not .status}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}' | xargs --no-run-if-empty oc adm certificate approve
+```
+
+
 ### Destroy the bootstrap node after the API is finish
 Use **destroy** script with the **-target=module.bootstrap** to destroy the bootstrap node when the **openshift-install** show is safe to delete
 
