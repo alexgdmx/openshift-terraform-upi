@@ -1,20 +1,27 @@
+# Installing OpenShift Container Platform in VMWare with User Provisioned Infrastructure
+Openshift can be installed in multiples platforms and offer the **openshift-install** installer to help to create all necesary to deploy a succesfull cluster installation. We use the **openshift-install**  to create the resources for a UPI installation: manifests and ignition files. When we create a UPI cluster, there are some extra steps to do and some of them require a manual process to type commands or copy information according the [documentation](https://docs.openshift.com/container-platform/4.11/installing/installing_vsphere/installing-vsphere.html).
+
+The follow procedure is intented to simplify the manual process to install a UPI cluster to avoid human errors. 
+
+
 ## OpenShift terraform UPI OCP >= 4.6
 
 The follow procedure assume you have installed terraform and you have an **install-config.yaml**
 
-The repository contain a bash script **install.sh** to generate the ignition files required by the **openshift-install**, or you can generate by your own and copy to the web server **/var/www/html**. Terraform expect read from the directory mentioned.
+The repository contain a bash script **install.sh** to generate the ignition files required by the **openshift-install**, or you can generate it by your own and copy to the web server **/var/www/html**. Terraform expect read ithe ignition files from there.
 
 ### Requirements
-- Understanding of the syntax of the **openshift-install.yaml**
+- OCP >= 4.6
+- Understanding of the syntax of the [**openshift-install.yaml**](https://docs.openshift.com/container-platform/4.11/installing/installing_vsphere/installing-vsphere.html#installation-vsphere-config-yaml_installing-vsphere)
 - install-config.yaml with the OpenShift configurations and vcenter configurations
 - Web server (httpd) to serve the ignition files
-- terraform
+- [Terraform](https://developer.hashicorp.com/terraform/downloads)
 - Internet connection 
-- DMS configured
-- Loadbalacner configured (haproxy or other)
+- [DNS configured] (https://docs.openshift.com/container-platform/4.11/installing/installing_vsphere/installing-vsphere.html#installation-dns-user-infra-example_installing-vsphere)
+- Loadbalacner configured [(haproxy or other)](https://docs.openshift.com/container-platform/4.11/installing/installing_vsphere/installing-vsphere.html#installation-load-balancing-user-infra-example_installing-vsphere) 
 
 #### Modify the template of the **install-config.yaml**
-Yo can use the **intall-config.yaml** and change any configuration required
+Yo can use the **intall-config.yaml** and change any configuration required.
 
 #### Adapt the bash script changing the values of your pullsecret and SSH key
 ```bash
