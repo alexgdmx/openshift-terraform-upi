@@ -1,54 +1,5 @@
 ## OpenShift terraform UPI
 
-The follow procedure assume you have installed terraform and you have an **install-config.yaml**
-
-The repository contain a bash script **install.sh** to generate the ignition files required by the **openshift-install**, or you can generate by your own and copy to the web server **/var/www/html**. Terraform expect read from the directory mentioned.
-
-### Requirements
-- Understanding of the syntax of the **openshift-install.yaml**
-- install-config.yaml with the OpenShift configurations and vcenter configurations
-- Web server (httpd) to serve the ignition files
-- terraform
-- Internet connection 
-- DMS configured
-- Loadbalacner configured (haproxy or other)
-
-#### Modify the template of the **install-config.yaml**
-Yo can use the **intall-config.yaml** and change any configuration required
-
-#### Adapt the bash script changing the values of your pullsecret and SSH key
-```bash
-#!/bin/bash
-set -xe
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-rm -fr deployment
-mkdir deployment
-
-cp install-config.yaml deployment/
-
-PULL_SECRET=$(cat ../.pull-secret | tr -d '\n\r\t ')
-sed -i "s/PULL_SECRET/${PULL_SECRET}/" deployment/install-config.yaml
-
-SSH_KEY=$(cat ~/.ssh/id_rsa.pub | tr -d '\n\r\t' | sed -r 's/\//\\\//g')
-sed -i "s/SSH_KEY/${SSH_KEY}/" deployment/install-config.yaml
-
-openshift-install create manifests --dir=deployment
-
-sed -i 's/true/false/g' deployment/manifests/cluster-scheduler-02-config.yml
-rm -f deployment/openshift/99_openshift-cluster-api_master-machines-*.yaml deployment/openshift/99_openshift-cluster-api_worker-machineset-*.yaml
-
-openshift-install create ignition-configs --dir=deployment
-
-sudo cp -f deployment/*.ign /var/www/html/
-
-sudo chmod 755 /var/www/html/*
-sudo chcon -R -t httpd_sys_content_t /var/www/html
-sudo restorecon -R -v /var/www/html
-
-export KUBECONFIG="${DIR}/deployment/auth/kubeconfig"
-```
-
 ## Terraform 
 Change to the folder terraform.
 
