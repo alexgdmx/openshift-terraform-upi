@@ -1,4 +1,4 @@
-## OpenShift terraform UPI
+## OpenShift terraform UPI OCP >= 4.6
 
 The follow procedure assume you have installed terraform and you have an **install-config.yaml**
 
