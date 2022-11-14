@@ -1,0 +1,5 @@
+/deployment/
+/terraform/outputs/
+/terraform/*tfstate*
+/terraform/.terraform/
+/terraform/.terraform*
