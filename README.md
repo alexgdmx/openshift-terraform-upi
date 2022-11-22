@@ -3,7 +3,7 @@ OpenShift can be installed in multiples platforms and offer the **openshift-inst
 
 The follow procedure is intented to simplify the manual process to install a UPI cluster to avoid human errors. 
 
-#### [Download the terraform and other scipts fromi github](https://github.com/alexgdmx/openshift-terraform-upi)
+#### [Download the terraform and other scipts from github](https://github.com/alexgdmx/openshift-terraform-upi)
 
 ## OpenShift terraform UPI OCP >= 4.6
 

@@ -7,7 +7,7 @@ data "template_file" "merge_bootstrap" {
 
 
 resource "vsphere_virtual_machine" "openshift" {
-  name                 = "${var.machine_config.hostname}.${var.node_net.domain}"
+  name                 = "${var.machine_config.hostname}.${var.folder}.${var.node_net.domain}"
   datacenter_id        = var.datacenter_id
   datastore_id         = var.datastore_id
   host_system_id       = var.host_system_id
